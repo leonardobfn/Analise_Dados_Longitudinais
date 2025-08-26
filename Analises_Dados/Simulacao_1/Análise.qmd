@@ -1,0 +1,66 @@
+---
+title: "Análise"
+format: html
+---
+
+# 1) Motivação prática (duas variáveis)
+
+Queremos estudar a relação entre **idade** (`x1`) e **pressão arterial sistólica** (`y`), ajustando por **sexo** (`x2`; 0 = mulher, 1 = homem) em um estudo transversal
+
+# 2) Modelo de regressão linear (cross-section)
+
+$$y_i = \beta_0 + \beta_1 \cdot \text{idade}_i + \alpha_2 \cdot \text{sexo}_i + \epsilon_i , \quad \epsilon_i \sim N(0, \sigma^2) $$
+
+-   $\beta_1$ é Diferença média de PA ao comparar indivíduos que diferem 1 ano de idade, mantendo as demais covariáveis constantes.\
+
+-   $\beta_2$ diferença média de PA entre homens e mulheres, mantendo idade fixa.
+
+> Nota: Isso compara subconjuntos da população; não descreve a mudança de uma mesma pessoa ao longo do tempo.
+
+```{r}
+# Dados do exemplo transversal (cross-section) --------
+# Dados balanceados: 2 mulheres e 2 homens por idade
+df <- data.frame(
+  pessoa = LETTERS[1:8],
+  idade  = c(27,27,27,27, 28,28,28,28),
+  sexo   = c(0,0,1,1, 0,0,1,1) |> as.factor(), # 0 = mulher, 1 = homem
+  PA     = c(112,114,118,117, 116,118,122,121)
+)
+
+df
+
+```
+
+## Médias por idade (todas as pessoas)
+
+-   **27 anos:**\
+   $(112 + 114 + 118 + 117)/4 = 115,25$ mmHg mmHg
+
+-   **28 anos:**\
+   $(116 + 118 + 122 + 121)/4 = 119,25$ mmHg
+
+-   **Diferença (28 − 27):**\
+    $119,25 - 115,25 = 4,0$ mmHg → diferença média entre grupos de idade
+
+## Médias por sexo com idade fixa (27 anos)
+
+-   **Mulheres (A, B, E):**\
+    $(112 + 114)/2 = 113,0$ mmHg
+
+-   **Homens (C, D):**\
+    $(118 + 117)/2 = 117,5$ mmHg
+
+-   **Diferença (Homem − Mulher):**\
+    $117,5 - 113,0 = 4,5$ mmHg → diferença média entre sexos 
+
+Note que “+4,0 mmHg por 1 ano a mais” descreve a **diferença média entre subconjuntos (28 vs 27)**; **não** garante que **a mesma pessoa** ganhará +4,0 mmHg ao fazer aniversário. Para isso, precisaríamos **dados longitudinais**.
+
+# 4) Transição para longitudinal
+
+Se quisermos saber **como a PA muda dentro do mesmo indivíduo com o tempo**, ou se as **trajetórias** diferem por sexo, precisamos de **um estudo longitudinal** (medidas repetidas nos mesmos participantes). Aí conseguimos testar:
+
+-    Médias iguais entre grupos **em todos os tempos**?
+
+-   Diferenças **constantes** (apenas deslocamento de nível) ou **padrões distintos** de evolução?
+
+-   Diferenças **aumentam/diminuem** com o tempo ou **oscilam**?
