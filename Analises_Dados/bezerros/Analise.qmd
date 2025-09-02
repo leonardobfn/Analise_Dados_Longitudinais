@@ -1,0 +1,45 @@
+---
+title: "Peso de Bezerros"
+#author: "Curso de Análise de Dados Longitudinais"
+format: html
+---
+# Objetivo do Estudo
+
+O objetivo deste estudo é explorar o **crescimento de bezerros entre a 12ª e a 26ª semana de vida**, utilizando **dados longitudinais com medidas repetidas**. A análise inicial se concentra em **compreender padrões gerais e individuais de crescimento**, identificar **variabilidade entre e dentro dos animais**, e introduzir conceitos fundamentais de **análise de dados longitudinais** por meio da **Análise Exploratória de Dados (AED)**.
+
+
+# 1. Compreensão da Base de Dados
+
+1.  Quantos animais estão na base de dados e quantas medições cada animal possui?
+2.  Quantas vezes o peso final (26ª semana) é maior que o peso inicial (12ª semana) para cada animal? Dica: calcular a razão `peso_final / peso_inicial` para cada animal.
+
+# 2. Visualização Geral do Crescimento
+
+3.  Como o peso de cada animal varia ao longo das semanas? (Faça um gráfico de linhas por animal)
+4.  Qual é o peso médio de bezerros em cada semana? Existe grande variabilidade entre os animais? (Boxplot)
+5.  Que padrões gerais de crescimento podemos observar na média do grupo? 
+
+# 3. Resumo Estatístico por Semana
+
+6.  Qual é a média, mediana, mínimo, máximo e quartis do peso em cada semana?
+7.  A variação do peso aumenta, diminui ou se mantém ao longo do tempo?
+
+# 4. Padrões Individuais e Variabilidade
+
+8. Como diferem as trajetórias individuais de crescimento entre os animais?
+
+# 5. Tendências e Correlações
+
+9. Existe uma tendência geral de crescimento linear ou não-linear? Faça um scaterplot e calcule as correlações. 
+10. Como podemos começar a pensar em **modelos** a partir dessas observações?
+
+# 6. Transformações e Medidas Relativas
+
+11. Como calcular o crescimento relativo (percentual) de cada animal ao longo do período? Considere como referência o peso incial. 
+12.  Ao dividir o peso de cada animal pelo **peso médio da semana** (crescimento relativo à média), que tipo de informação podemos extrair sobre os animais?  
+
+# 7. Discussão e Interpretação
+
+13. Que padrões gerais e individuais de crescimento podem ser observados na turma de bezerros?
+14. Quais considerações iniciais podemos tirar sobre a variabilidade entre e dentro de sujeitos?
+15. Como essas observações podem guiar a escolha de modelos longitudinais mais avançados?

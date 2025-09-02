@@ -24,7 +24,7 @@ mean_cross <- df %>%
   summarise(PA_media = mean(PA)) 
 mean_cross
 
-model = lm(PA ~  idade, data = df)
+model = lm(PA ~ idade+as.factor(sexo)-1, data = df)
 summary(model)
 # Gráfico 1: Estudo transversal (médias por idade e sexo)
 ggplot(df, aes(x = factor(idade), y = PA, fill = factor(sexo))) +
@@ -72,7 +72,7 @@ for(i in 1:n_ind){
   base  <- rnorm(1, mean = 110, sd = 5)
   slope <- rnorm(1, mean = 1.2, sd = 0.3)
   noise <- rnorm(length(idades), mean = 0, sd = 2)
-  PA_traj <- base + slope * (idades - 27) + 1*sexo_ind[i]+noise
+  PA_traj <- base + slope * (idades - 27) + 3*sexo_ind[i]+noise
   df_long <- rbind(df_long,
                    data.frame(ind = i, idade = idades, PA = PA_traj,
                               sexo = sexo_ind[i]))
