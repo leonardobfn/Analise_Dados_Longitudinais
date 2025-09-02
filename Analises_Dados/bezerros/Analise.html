@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="Analise_files/libs/clipboard/clipboard.min.js"></script>
@@ -65,7 +85,7 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="objetivo-do-estudo" class="level1">
 <h1>Objetivo do Estudo</h1>
-<p>O objetivo deste estudo é explorar o <strong>crescimento de bezerros entre a 12ª e a 26ª semana de vida</strong>, utilizando <strong>dados longitudinais com medidas repetidas</strong>. A análise inicial se concentra em <strong>compreender padrões gerais e individuais de crescimento</strong>, identificar <strong>variabilidade entre e dentro dos animais</strong>, e introduzir conceitos fundamentais de <strong>análise de dados longitudinais</strong> por meio da <strong>Análise Exploratória de Dados (AED)</strong>.</p>
+<p>O objetivo deste estudo é explorar o <strong>crescimento de bezerros entre a 12ª e a 26ª semana de vida</strong>, utilizando <strong>dados longitudinais com medidas repetidas</strong>. A análise inicial se concentra em <strong>compreender padrões gerais e individuais de crescimento</strong>, identificar <strong>variabilidade entre e dentro dos animais</strong>, e introduzir conceitos fundamentais de <strong>análise de dados longitudinais</strong> por meio da <strong>Análise Exploratória de Dados (AED)</strong>. Exemplo do livro <span class="citation" data-cites="morettin2025estatistica">(<a href="#ref-morettin2025estatistica" role="doc-biblioref">Morettin and Singer 2023</a>)</span></p>
 </section>
 <section id="compreensão-da-base-de-dados" class="level1">
 <h1>1. Compreensão da Base de Dados</h1>
@@ -116,9 +136,14 @@ ul.task-list li input[type="checkbox"] {
 <li>Quais considerações iniciais podemos tirar sobre a variabilidade entre e dentro de sujeitos?</li>
 <li>Como essas observações podem guiar a escolha de modelos longitudinais mais avançados?</li>
 </ol>
+
 </section>
 
-</main>
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-morettin2025estatistica" class="csl-entry" role="listitem">
+Morettin, Pedro Alberto, and Júlio da Motta Singer. 2023. <em>Estatística e Ciência de Dados</em>. Gen,LTC.
+</div>
+</div></section></div></main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {

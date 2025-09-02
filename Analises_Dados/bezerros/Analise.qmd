@@ -2,11 +2,12 @@
 title: "Peso de Bezerros"
 #author: "Curso de Análise de Dados Longitudinais"
 format: html
+bibliography: references.bib
 ---
+
 # Objetivo do Estudo
 
-O objetivo deste estudo é explorar o **crescimento de bezerros entre a 12ª e a 26ª semana de vida**, utilizando **dados longitudinais com medidas repetidas**. A análise inicial se concentra em **compreender padrões gerais e individuais de crescimento**, identificar **variabilidade entre e dentro dos animais**, e introduzir conceitos fundamentais de **análise de dados longitudinais** por meio da **Análise Exploratória de Dados (AED)**.
-
+O objetivo deste estudo é explorar o **crescimento de bezerros entre a 12ª e a 26ª semana de vida**, utilizando **dados longitudinais com medidas repetidas**. A análise inicial se concentra em **compreender padrões gerais e individuais de crescimento**, identificar **variabilidade entre e dentro dos animais**, e introduzir conceitos fundamentais de **análise de dados longitudinais** por meio da **Análise Exploratória de Dados (AED)**. Exemplo do livro [@morettin2025estatistica]
 
 # 1. Compreensão da Base de Dados
 
@@ -17,7 +18,7 @@ O objetivo deste estudo é explorar o **crescimento de bezerros entre a 12ª e a
 
 3.  Como o peso de cada animal varia ao longo das semanas? (Faça um gráfico de linhas por animal)
 4.  Qual é o peso médio de bezerros em cada semana? Existe grande variabilidade entre os animais? (Boxplot)
-5.  Que padrões gerais de crescimento podemos observar na média do grupo? 
+5.  Que padrões gerais de crescimento podemos observar na média do grupo?
 
 # 3. Resumo Estatístico por Semana
 
@@ -26,17 +27,17 @@ O objetivo deste estudo é explorar o **crescimento de bezerros entre a 12ª e a
 
 # 4. Padrões Individuais e Variabilidade
 
-8. Como diferem as trajetórias individuais de crescimento entre os animais?
+8.  Como diferem as trajetórias individuais de crescimento entre os animais?
 
 # 5. Tendências e Correlações
 
-9. Existe uma tendência geral de crescimento linear ou não-linear? Faça um scaterplot e calcule as correlações. 
+9.  Existe uma tendência geral de crescimento linear ou não-linear? Faça um scaterplot e calcule as correlações.
 10. Como podemos começar a pensar em **modelos** a partir dessas observações?
 
 # 6. Transformações e Medidas Relativas
 
-11. Como calcular o crescimento relativo (percentual) de cada animal ao longo do período? Considere como referência o peso incial. 
-12.  Ao dividir o peso de cada animal pelo **peso médio da semana** (crescimento relativo à média), que tipo de informação podemos extrair sobre os animais?  
+11. Como calcular o crescimento relativo (percentual) de cada animal ao longo do período? Considere como referência o peso incial.
+12. Ao dividir o peso de cada animal pelo **peso médio da semana** (crescimento relativo à média), que tipo de informação podemos extrair sobre os animais?
 
 # 7. Discussão e Interpretação
 
