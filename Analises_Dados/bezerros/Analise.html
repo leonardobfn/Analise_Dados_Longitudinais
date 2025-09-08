@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR" xml:lang="pt-BR"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.32">
@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 /* CSS for citations */
 div.csl-bib-body { }
@@ -85,19 +120,127 @@ div.csl-indent {
 
 <section id="objetivo-do-estudo" class="level1">
 <h1>Objetivo do Estudo</h1>
-<p>O objetivo deste estudo é explorar o <strong>crescimento de bezerros entre a 12ª e a 26ª semana de vida</strong>, utilizando <strong>dados longitudinais com medidas repetidas</strong>. A análise inicial se concentra em <strong>compreender padrões gerais e individuais de crescimento</strong>, identificar <strong>variabilidade entre e dentro dos animais</strong>, e introduzir conceitos fundamentais de <strong>análise de dados longitudinais</strong> por meio da <strong>Análise Exploratória de Dados (AED)</strong>. Exemplo do livro <span class="citation" data-cites="morettin2025estatistica">(<a href="#ref-morettin2025estatistica" role="doc-biblioref">Morettin and Singer 2023</a>)</span></p>
+<p>O objetivo deste estudo é explorar o <strong>crescimento de bezerros entre a 12ª e a 26ª semana de vida</strong>, utilizando <strong>dados longitudinais com medidas repetidas</strong>. A análise inicial se concentra em <strong>compreender padrões gerais e individuais de crescimento</strong>, identificar <strong>variabilidade entre e dentro dos animais</strong>, e introduzir conceitos fundamentais de <strong>análise de dados longitudinais</strong> por meio da <strong>Análise Exploratória de Dados (AED)</strong>. Exemplo do livro <span class="citation" data-cites="morettin2025estatistica">(<a href="#ref-morettin2025estatistica" role="doc-biblioref">Morettin e Singer 2023</a>)</span></p>
 </section>
 <section id="compreensão-da-base-de-dados" class="level1">
 <h1>1. Compreensão da Base de Dados</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># carregando a base de dados</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">=</span> readxl<span class="sc">::</span><span class="fu">read_xls</span>(<span class="st">"../../Dados/Dados_Livro_Estatistica_e_CD/bezerros.xls"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <ol type="1">
 <li>Quantos animais estão na base de dados e quantas medições cada animal possui?</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(dados)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 15
+Columns: 9
+$ ind &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+$ t12 &lt;dbl&gt; 54.1, 91.7, 64.2, 70.3, 68.3, 43.9, 87.4, 74.5, 50.5, 91.0, 83.3, …
+$ t14 &lt;dbl&gt; 65.4, 104.0, 81.0, 80.0, 77.2, 48.1, 95.4, 86.8, 55.0, 95.5, 89.7,…
+$ t16 &lt;dbl&gt; 75.1, 119.2, 91.5, 90.0, 84.2, 58.3, 110.5, 94.4, 59.1, 109.8, 99.…
+$ t18 &lt;dbl&gt; 87.9, 133.1, 106.9, 102.6, 96.2, 68.6, 122.5, 103.6, 68.9, 124.9, …
+$ t20 &lt;dbl&gt; 98.0, 145.4, 117.1, 101.2, 104.1, 78.5, 127.0, 110.7, 78.2, 135.9,…
+$ t22 &lt;dbl&gt; 108.7, 156.5, 127.7, 120.4, 114.0, 86.8, 136.3, 120.0, 75.1, 148.0…
+$ t24 &lt;dbl&gt; 124.2, 167.2, 144.2, 130.9, 123.0, 99.9, 144.8, 126.7, 79.0, 154.5…
+$ t26 &lt;dbl&gt; 131.3, 176.8, 154.9, 137.1, 132.0, 106.2, 151.5, 132.2, 77.0, 167.…</code></pre>
+</div>
+</div>
+<ul>
+<li>15 animais. Cada animal possui 8 medições</li>
+</ul>
+<ol start="2" type="1">
 <li>Quantas vezes o peso final (26ª semana) é maior que o peso inicial (12ª semana) para cada animal? Dica: calcular a razão <code>peso_final / peso_inicial</code> para cada animal.</li>
 </ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>(<span class="at">razao =</span> dados<span class="sc">$</span>t26<span class="sc">/</span>dados<span class="sc">$</span>t12 )</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 2.426987 1.928026 2.412773 1.950213 1.932650 2.419134 1.733410 1.774497
+ [9] 1.524752 1.841758 1.884754 1.762779 1.932021 1.763469 1.830389</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(razao)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  1.525   1.769   1.885   1.941   1.941   2.427 </code></pre>
+</div>
+</div>
+<ul>
+<li>Em média, houve um aumento de 94% nos pesos do bezerro quando comparado a primeira e a última semana</li>
+</ul>
 </section>
 <section id="visualização-geral-do-crescimento" class="level1">
 <h1>2. Visualização Geral do Crescimento</h1>
 <ol start="3" type="1">
 <li>Como o peso de cada animal varia ao longo das semanas? (Faça um gráfico de linhas por animal)</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># transformando a base para o formato longer</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>dados.longer <span class="ot">=</span> <span class="fu">pivot_longer</span>(dados,<span class="at">col=</span><span class="sc">-</span>ind,<span class="at">names_to =</span> <span class="st">"Semanas"</span>,<span class="at">values_to =</span> <span class="st">"Peso(Kg)"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dados.longer,<span class="dv">10</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 3
+     ind Semanas `Peso(Kg)`
+   &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;
+ 1     1 t12           54.1
+ 2     1 t14           65.4
+ 3     1 t16           75.1
+ 4     1 t18           87.9
+ 5     1 t20           98  
+ 6     1 t22          109. 
+ 7     1 t24          124. 
+ 8     1 t26          131. 
+ 9     2 t12           91.7
+10     2 t14          104  </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remover o "t"</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>dados.longer <span class="ot">=</span> dados.longer <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">Semanas =</span> <span class="fu">str_extract</span>(Semanas,<span class="st">"[0-9]+"</span>))</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dados.longer,<span class="dv">10</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 3
+     ind Semanas `Peso(Kg)`
+   &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;
+ 1     1 12            54.1
+ 2     1 14            65.4
+ 3     1 16            75.1
+ 4     1 18            87.9
+ 5     1 20            98  
+ 6     1 22           109. 
+ 7     1 24           124. 
+ 8     1 26           131. 
+ 9     2 12            91.7
+10     2 14           104  </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># gráfico 1</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dados.longer,<span class="fu">aes</span>(<span class="at">x=</span>Semanas,<span class="at">y=</span><span class="st">`</span><span class="at">Peso(Kg)</span><span class="st">`</span>,<span class="at">group =</span> ind,<span class="at">colour =</span> <span class="fu">factor</span>(ind))) <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color=</span><span class="st">"Indivíduo"</span>)<span class="sc">+</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Analise_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># gráfico 2</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dados.longer,<span class="fu">aes</span>(<span class="at">x=</span>Semanas,<span class="at">y=</span><span class="st">`</span><span class="at">Peso(Kg)</span><span class="st">`</span>,<span class="at">group =</span> ind)) <span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color=</span><span class="st">"Indivíduo"</span>)<span class="sc">+</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>ind) <span class="sc">+</span> </span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Analise_files/figure-html/unnamed-chunk-4-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ol start="4" type="1">
 <li>Qual é o peso médio de bezerros em cada semana? Existe grande variabilidade entre os animais? (Boxplot)</li>
 <li>Que padrões gerais de crescimento podemos observar na média do grupo?</li>
 </ol>
@@ -139,9 +282,9 @@ div.csl-indent {
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Referências</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-morettin2025estatistica" class="csl-entry" role="listitem">
-Morettin, Pedro Alberto, and Júlio da Motta Singer. 2023. <em>Estatística e Ciência de Dados</em>. Gen,LTC.
+Morettin, Pedro Alberto, e Júlio da Motta Singer. 2023. <em>Estatística e Ciência de Dados</em>. Gen,LTC.
 </div>
 </div></section></div></main>
 <!-- /main column -->
@@ -170,12 +313,12 @@ Morettin, Pedro Alberto, and Júlio da Motta Singer. 2023. <em>Estatística e Ci
       // flash "checked"
       button.classList.add('code-copy-button-checked');
       var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Copied!");
+      button.setAttribute("title", "Copiada");
       let tooltip;
       if (window.bootstrap) {
         button.setAttribute("data-bs-toggle", "tooltip");
         button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Copied!");
+        button.setAttribute("data-bs-title", "Copiada");
         tooltip = new bootstrap.Tooltip(button, 
           { trigger: "manual", 
             customClass: "code-copy-button-tooltip",

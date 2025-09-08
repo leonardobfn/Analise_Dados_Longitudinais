@@ -2,7 +2,11 @@
 title: "Peso de Bezerros"
 #author: "Curso de Análise de Dados Longitudinais"
 format: html
+lang: pt-BR
 bibliography: references.bib
+execute:
+  message: false   # ocultar mensagens
+  warning: false   # ocultar warnings
 ---
 
 # Objetivo do Estudo
@@ -11,14 +15,86 @@ O objetivo deste estudo é explorar o **crescimento de bezerros entre a 12ª e a
 
 # 1. Compreensão da Base de Dados
 
+```{r}
+require(tidyverse)
+# carregando a base de dados
+dados = readxl::read_xls("../../Dados/Dados_Livro_Estatistica_e_CD/bezerros.xls")
+```
+
 1.  Quantos animais estão na base de dados e quantas medições cada animal possui?
+
+```{r}
+glimpse(dados)
+```
+
+-   15 animais. Cada animal possui 8 medições
+
 2.  Quantas vezes o peso final (26ª semana) é maior que o peso inicial (12ª semana) para cada animal? Dica: calcular a razão `peso_final / peso_inicial` para cada animal.
+
+```{r}
+(razao = dados$t26/dados$t12 )
+summary(razao)
+
+```
+
+-   Em média, houve um aumento de 94% nos pesos do bezerro quando comparado a primeira e a última semana
 
 # 2. Visualização Geral do Crescimento
 
 3.  Como o peso de cada animal varia ao longo das semanas? (Faça um gráfico de linhas por animal)
+
+```{r}
+# transformando a base para o formato longer
+dados.longer = pivot_longer(dados,col=-ind,names_to = "Semanas",values_to = "Peso(Kg)")
+head(dados.longer,10)
+
+# Remover o "t"
+dados.longer = dados.longer |> mutate(Semanas = str_extract(Semanas,"[0-9]+"))
+head(dados.longer,10)
+
+# gráfico 1
+ggplot(dados.longer,aes(x=Semanas,y=`Peso(Kg)`,group = ind,colour = factor(ind))) +
+  geom_line()+
+  geom_point() +
+  labs(color="Indivíduo")+
+  theme_bw()
+
+# gráfico 2
+ggplot(dados.longer,aes(x=Semanas,y=`Peso(Kg)`,group = ind)) +
+  geom_line()+
+  geom_point() +
+  labs(color="Indivíduo")+
+  facet_wrap(~ind) + 
+  theme_bw()
+```
+
 4.  Qual é o peso médio de bezerros em cada semana? Existe grande variabilidade entre os animais? (Boxplot)
-5.  Que padrões gerais de crescimento podemos observar na média do grupo?
+
+```{r}
+dados.longer |> 
+  group_by(Semanas) |> 
+  summarise(media = mean(`Peso(Kg)`),
+            desvio_padrao = sd(`Peso(Kg)`),
+            cv = desvio_padrao/media)
+```
+
+```{r}
+#gráfico 1
+ggplot(dados.longer,aes(x = Semanas,y=`Peso(Kg)`,colour = Semanas))+
+  geom_boxplot()+
+  ggplot2::geom_jitter()+
+  theme_bw() + 
+  theme(legend.position = "none") # removendo a legenda
+
+#gráfico 2
+ggplot(dados.longer,aes(x = Semanas,y=`Peso(Kg)`,colour = Semanas))+
+  geom_point()+
+  theme_bw() + 
+  theme(legend.position = "none") # removendo a legenda
+  
+```
+
+5.  Quais padrões gerais de crescimento podemos observar na média ao longo das semanas?
 
 # 3. Resumo Estatístico por Semana
 
@@ -28,6 +104,15 @@ O objetivo deste estudo é explorar o **crescimento de bezerros entre a 12ª e a
 # 4. Padrões Individuais e Variabilidade
 
 8.  Como diferem as trajetórias individuais de crescimento entre os animais?
+
+```{r}
+dados.longer |> 
+  group_by(ind) |>
+   summarise(dif = `Peso(Kg)` - `Peso(Kg)`[1] ,
+             )
+
+```
+
 
 # 5. Tendências e Correlações
 
