@@ -107,9 +107,10 @@ ggplot(dados.longer,aes(x = Semanas,y=`Peso(Kg)`,colour = Semanas))+
 
 ```{r}
 dados.longer |> 
-  group_by(ind) |>
-   summarise(dif = `Peso(Kg)` - `Peso(Kg)`[1] ,
-             )
+  group_by(ind) |> 
+  summarise(media = mean(`Peso(Kg)`),
+            desvio_padrao = sd(`Peso(Kg)`),
+            cv = desvio_padrao/media)
 
 ```
 
@@ -117,12 +118,78 @@ dados.longer |>
 # 5. Tendências e Correlações
 
 9.  Existe uma tendência geral de crescimento linear ou não-linear? Faça um scaterplot e calcule as correlações.
+```{r}
+cor(dados[,-1])
+plot(dados[,-1])
+```
+
 10. Como podemos começar a pensar em **modelos** a partir dessas observações?
 
 # 6. Transformações e Medidas Relativas
 
 11. Como calcular o crescimento relativo (percentual) de cada animal ao longo do período? Considere como referência o peso incial.
+```{r}
+dados.longer |> 
+  group_by(ind) |> 
+  summarise(r1 = (`Peso(Kg)`/`Peso(Kg)`[1])-1)
+```
+
 12. Ao dividir o peso de cada animal pelo **peso médio da semana** (crescimento relativo à média), que tipo de informação podemos extrair sobre os animais?
+```{r}
+dados.longer |> 
+  group_by(Semanas) |> 
+  summarise(media_semana = mean(`Peso(Kg)`),
+            r2 = `Peso(Kg)`/media_semana)
+```
+
+Se $r2 < 1$ indica que o peso do animal está abaixo da média da semana. Animais com peso_relativo muito acima ou abaixo da média por várias semanas podem indicar algum comportmento atípico. Essa razão também é uma maneira de padronizar os pesos pelo peso médio da semana, dessa forma, todos os animais são comparados na mesma escala relativa. 
+
+```{r}
+dados.longer |> 
+  group_by(Semanas) |> 
+  summarise(media_semana = mean(`Peso(Kg)`),
+            r2 = `Peso(Kg)`/media_semana) |>
+  group_by(Semanas) |> 
+  slice(9)
+```
+
+## Outras medidas 
+```{r}
+dados.longer |> 
+  group_by(ind) |> 
+  summarise(d = `Peso(Kg)`- `Peso(Kg)`[1])
+
+```
+
+```{r}
+library(broom)
+dados.longer |>
+  group_by(ind) |>
+  do(tidy(lm(`Peso(Kg)` ~ as.numeric(Semanas), data = .)))
+
+```
+
+
+- Como a regressão linear assume relação linear para toda a reta, mas temos dados entre semanas 12 e 26, o intercepto não faz sentido fora dessa faixa.
+
+- $\beta_1$ é a inclinação, ou seja, taxa de crescimento em Kg/semana
+
+- Podemos ter intercepto com interpretação mais realista, nesse caso é preciso centralizar o tempo. Por exemplo, redefinir a semana inicial como zero:
+```{r}
+
+dados.longer |>
+  mutate(Semana_c = as.numeric(Semanas) - 12) |> 
+  group_by(ind) |>
+  do(tidy(lm(`Peso(Kg)` ~ Semana_c, data = .)))
+
+
+```
+
+-O intercepto depende de como definimos a variável tempo.
+
+-Ao centralizar, ganhamos uma interpretação mais útil: o peso previsto no início da observação (semana 12).
+
+-A inclinação não muda, porque a taxa de crescimento é independente da forma como medimos o tempo.
 
 # 7. Discussão e Interpretação
 
