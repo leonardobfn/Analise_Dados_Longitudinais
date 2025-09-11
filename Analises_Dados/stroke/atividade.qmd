@@ -1,0 +1,51 @@
+---
+title: "Atividade: Recuperação de pacientes após derrame"
+format: html
+lang: pt-BR
+bibliography: ../../references.bib
+execute:
+  message: false   # ocultar mensagens
+  warning: false   # ocultar warnings
+---
+
+## Contexto
+
+Os dados são de um experimento para promover a recuperação de pacientes que sofreram derrame.
+
+Existiam **três grupos experimentais**:
+
+-   **Grupo A**: uma nova intervenção de terapia ocupacional;\
+-   **Grupo B**: o programa existente de reabilitação de derrame realizado no mesmo hospital onde o Grupo A foi conduzido;\
+-   **Grupo C**: o regime de cuidados usuais para pacientes com derrame, oferecido em um hospital diferente.
+
+Cada grupo experimental tinha **8 pacientes**.
+
+A variável resposta foi uma **medida de capacidade funcional**, o **Índice de Barthel**:\
+- Pontuações mais altas = melhores resultados;\
+- Pontuação máxima = 100.
+
+Cada paciente foi avaliado **semanalmente durante 8 semanas**.
+
+A ideia do estudo era verificar se os pacientes do grupo A iriam se recuperar melhor do que os pacientes dos grupos B ou C
+
+Exemplo do livro @dobson2008introduction. O estudo foi conduzido por **C. Cropper**, na **Universidade de Queensland**, e os dados foram obtidos no site [OzDasl](http://www.statsci.org/data/oz/stroke.html). 
+
+# Atividade
+
+
+(a) Crie um gráfico de perfis dos dados. Use tipos de linha diferentes (ou cores, ou gráficos separados) para os grupos.
+
+(b) Relate brevemente suas conclusões. Qual é o padrão geral? Grupos são diferentes? Em que aspectos?
+
+(c) Calcule as correlações entre as observações e construa uma matriz de dispersão (scatterplot matrix). Use símbolos diferentes para representar grupos.
+
+(d) Relate quaisquer achados adicionais.
+
+(f) Construa um boxplot de cada grupo. Comente
+
+(e) Construa um boxplot de cada semana e repita separadamente para os grupos. Comente.
+
+(f) Calcule a média de cada grupo em cada semana. Há indícios de diferença de nível entre grupos?
+
+
+

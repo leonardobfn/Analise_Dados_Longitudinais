@@ -3,7 +3,7 @@ title: "milk"
 #author: "Curso de Análise de Dados Longitudinais"
 format: html
 lang: pt-BR
-bibliography: references.bib
+bibliography: ../../references.bib
 execute:
   message: false   # ocultar mensagens
   warning: false   # ocultar warnings
